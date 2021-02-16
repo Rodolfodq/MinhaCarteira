@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
@@ -104,8 +103,8 @@ const List: React.FC<IRouteParams> = ({ match }) => {
 
   const handleMonthSelected = (month: string) => {
     try {
-      const parseMonth = Number(month);      
-      setMonthSelected(parseMonth);       
+      const parseMonth = Number(month);
+      setMonthSelected(parseMonth);
     } catch (error) {
       throw new Error("Invalid month value. Is accept 0 - 24");
     }

@@ -4,6 +4,7 @@ import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
 import WalletBox from "../../components/WalletBox";
 import MessageBox from "../../components/MessageBox";
+import PieChartBox from "../../components/PieChartBox";
 
 import gains from "../../repositories/gains";
 import expenses from "../../repositories/expenses";
@@ -102,25 +103,47 @@ const Dashboard: React.FC = () => {
         description: "Neste mês, você gastou mais do que deveria.",
         footerText: "Verifique seus gastos e tente cortar alguns gastos.",
         icon: sadImg,
-      };    
-    }
-    else if (totalBalance === 0) {
+      };
+    } else if (totalBalance === 0) {
       return {
         title: "Ufaa!",
         description: "Neste mês, você gastou exatamente o que ganhou",
         footerText: "Tenha cuidado. No próximo mês, tente poupar seu dinheiro",
         icon: grinningImg,
-      };    
-    }
-    else{
+      };
+    } else {
       return {
         title: "Muito bem!",
         description: "Sua carteira está positiva!",
         footerText: "Continue assim. Considere investir o resto.",
         icon: happyImg,
-      };   
+      };
     }
   }, [totalBalance]);
+
+  const relationExpensesVersusGains = useMemo(() => {
+    const total = totalGains + totalExpenses;
+
+    const percentGains = (totalGains / total) * 100;
+    const percentExpenses = (totalExpenses / total) * 100;
+
+    const data = [
+      {
+        name: "Entradas",
+        value: percentGains,
+        percent: Number(percentGains.toFixed(1)),
+        color: "#e44c4e",
+      },
+      {
+        name: "Saídas",
+        value: percentExpenses,
+        percent: Number(percentExpenses.toFixed(1)),
+        color: "#f7931b",
+      },
+    ];
+
+    return data;
+  }, [totalGains, totalExpenses]);
 
   const handleMonthSelected = (month: string) => {
     try {
@@ -182,6 +205,7 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
+        <PieChartBox data={relationExpensesVersusGains} />
       </Content>
     </Container>
   );

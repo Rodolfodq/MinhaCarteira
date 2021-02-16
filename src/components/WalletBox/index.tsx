@@ -1,6 +1,6 @@
 import React from "react";
 
-import CountUp from 'react-countup'; 
+import CountUp from "react-countup";
 
 import dollarImg from "../../assets/dollar.svg";
 import arrowUpImg from "../../assets/arrow-up.svg";
@@ -40,13 +40,13 @@ const WalletBox: React.FC<IWalletBoxProps> = ({
     <Container color={color}>
       <span>{title}</span>
       <h1>
-          <CountUp 
+        <CountUp
           end={ammount}
           prefix={"R$ "}
           separator="."
           decimal=","
           decimals={2}
-          />          
+        />
       </h1>
       <small>{footerLabel}</small>
       <img src={iconSelected()} alt={title} />
